@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Info</title>
+</head>
+<body>
+    <h1>Device Information</h1>
+    <script>
+        async function getDeviceDetails() {
+            const userAgent = navigator.userAgent;
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+
+            // The IP address will be added on the server side
+
+            const deviceDetails = {
+                userAgent: userAgent,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight
+            };
+
+            fetch('http://localhost:5001/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(deviceDetails)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Device details saved successfully');
+                } else {
+                    alert('Failed to save device details');
+                }
+            });
+        }
+
+        getDeviceDetails();
+    </script>
+</body>
+</html>
